@@ -18,8 +18,14 @@
     "TDD"
   ],
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chai-http": "^4.2.0",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^10.12.12",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cross-env": "^5.2.0",
+    "mocha": "^6.1.4",
     "typescript": "^3.2.1"
   },
   "dependencies": {},
