@@ -1,0 +1,28 @@
+{
+  "name": "project-api",
+  "version": "1.0.0",
+  "description": "This is the project-api service for my personal portfolio",
+  "main": "./dist/server.js",
+  "scripts": {
+    "dev": "cross-env PORT=3000 NODE_ENV=dev ts-node ./src/server.ts"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "keywords": [
+    "portfolio",
+    "TypeScript",
+    "API",
+    "REST",
+    "Swagger",
+    "TDD"
+  ],
+  "devDependencies": {
+    "@types/node": "^10.12.12",
+    "cross-env": "^5.2.0",
+    "typescript": "^3.2.1"
+  },
+  "dependencies": {},
+  "author": "danha",
+  "license": "MIT"
+}
