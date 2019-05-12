@@ -1,8 +1,8 @@
 import * as chai from 'chai';
-import chaiHttp from 'chai-http';
-import mocha from 'mocha';
+import chaiHttp = require('chai-http')
+import 'mocha';
 
-//import app from '../../src';
+import app from '../../src/app';
 
 chai.use(chaiHttp);
 
@@ -19,7 +19,7 @@ describe('/index', () => {
     it('Should respond with success message', async () => {
         return chai
             .request(app)
-            .get('./index')
+            .get('/index')
             .then(res => {
                 chai.expect(res.body.status).to.be.equal('success');
             });
