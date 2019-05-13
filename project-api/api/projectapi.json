@@ -124,33 +124,6 @@
           }
         }
       },
-      "delete": {
-        "tags": [
-          "project"
-        ],
-        "summary": "Delete Project",
-        "description": "Delete project specified by projectId",
-        "operationId": "deleteProject",
-        "parameters": [
-          {
-            "name": "projectId",
-            "in": "path",
-            "description": "ID of the project that needs to be deleted",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Project not found"
-          }
-        }
-      },
       "patch": {
         "tags": [
           "project"
@@ -191,6 +164,48 @@
           "description": "Updated project object",
           "required": true
         }
+      },
+      "delete": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Delete Project",
+        "description": "Delete project specified by projectId",
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "description": "ID of the project that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully removed project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
       }
     }
   },
@@ -204,7 +219,7 @@
             "id": {
               "type": "string"
             },
-            "name": {
+            "title": {
               "type": "string"
             }
           }
