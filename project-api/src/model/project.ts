@@ -1,7 +1,7 @@
 'use strict'
+import {ObjectId} from 'mongodb'
 
 export interface Project{
-    id: String,
     title: String,
     subtitle: String,
     description: String,

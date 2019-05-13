@@ -3,6 +3,7 @@
 import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 const expect = chai.expect;
+import {ObjectId} from 'mongodb';
 
 import app from '../../src/app';
 import { Project } from '../../src/model/project';
@@ -11,7 +12,6 @@ import { Project } from '../../src/model/project';
 chai.use(chaiHttp);
 
 const project: Project = {
-    id: '123456789',
     title: 'title',
     subtitle: 'subtitle',
     description: 'description',
@@ -19,6 +19,7 @@ const project: Project = {
     tags: ['chai', 'mocha'],
     images: []
 }
+let projectId: string;
 
 describe('Project API - CRUD operations', () => {
     describe('CREATE-POST /project', () => {
@@ -29,7 +30,13 @@ describe('Project API - CRUD operations', () => {
                 .send(project)
                 .then(res => {
                     expect(res.status).to.be.equal(201);
-                    expect(res.body).to.be.equal(project);
+                    expect(res.body.title).to.be.equal(project.title);
+                    expect(res.body.subtitle).to.be.equal(project.subtitle);
+                    expect(res.body.description).to.be.equal(project.description);
+                    expect(res.body.type).to.be.equal(project.type);
+                    expect(res.body.tags).include(project.tags[0]);
+                    expect(res.body.tags).include(project.tags[1]);
+                    projectId = res.body._id;
                 });
         });
         it('should return 400 for invalid project', async () => {
@@ -48,10 +55,10 @@ describe('Project API - CRUD operations', () => {
         it('should get project - 200', async () => {
             return chai
                 .request(app)
-                .get(`/project/${project.id}`)
+                .get(`/project/${projectId}`)
                 .then(res => {
                     expect(res.status).to.be.equal(200);
-                    expect(res.body.id).to.be.equal(project.id);
+                    expect(res.body._id).to.be.equal(projectId);
                     expect(res.body.title).to.be.equal(project.title);
                     expect(res.body.subtitle).to.be.equal(project.subtitle);
                     expect(res.body.description).to.be.equal(project.description);
@@ -68,7 +75,7 @@ describe('Project API - CRUD operations', () => {
                 });
         });
         it('should return 404 for non-existing projectId', async () => {
-            const nonExistingId = '99999999';
+            const nonExistingId = new ObjectId();
             return chai
                 .request(app)
                 .get(`/project/${nonExistingId}`)
@@ -80,7 +87,7 @@ describe('Project API - CRUD operations', () => {
     });
 
     describe('UPDATE-PATCH /project/{projectId}', () => {
-        it('should update existing project - 204', async () => {
+        it('should update existing project - 200', async () => {
             // Arrange
             const updateProject: Project = JSON.parse(JSON.stringify(project));
             const updatedTitle = 'updated title';
@@ -90,12 +97,12 @@ describe('Project API - CRUD operations', () => {
             // Act
             return chai
                 .request(app)
-                .patch(`/project/${project.id}`)
+                .patch(`/project/${projectId}`)
                 .send(updateProject)
                 .then(res => {
                     // Assert
-                    expect(res.status).to.be.equal(204);
-                    expect(res.body.id).to.be.equal(project.id);
+                    expect(res.status).to.be.equal(200);
+                    expect(res.body._id).to.be.equal(projectId);
                     expect(res.body.title).to.be.equal(updatedTitle);
                     expect(res.body.description).to.be.equal(updatedDescription);
                 });
@@ -104,14 +111,14 @@ describe('Project API - CRUD operations', () => {
             const updatedProject = {};
             return chai
                 .request(app)
-                .patch(`/project/${project.id}`)
+                .patch(`/project/${projectId}`)
                 .send(updatedProject)
                 .then(res => {
                     expect(res.status).to.be.equal(400);
                 });
         });
         it('should return 404 for non-existing project', async () => {
-            const nonExistingId = '99999999999';
+            const nonExistingId = new ObjectId();
             return chai
                 .request(app)
                 .patch(`/project/${nonExistingId}`)
@@ -126,10 +133,10 @@ describe('Project API - CRUD operations', () => {
         it('should delete existing project - 200', async () => {
             return chai
                 .request(app)
-                .delete(`/project/${project.id}`)
+                .delete(`/project/${projectId}`)
                 .then(res => {
                     expect(res.status).to.be.equal(200);
-                    expect(res.body.id).to.be.equal(project.id);
+                    expect(res.body._id).to.be.equal(projectId);
                 });
         });
         it('should return 400 for invalid projectId', async() => {
@@ -142,7 +149,7 @@ describe('Project API - CRUD operations', () => {
                 });
         });
         it('should return 404 for non-existing project', async() => {
-            const nonExisting = '99999999999';
+            const nonExisting = new ObjectId();
             return chai
                 .request(app)
                 .delete(`/project/${nonExisting}`)
