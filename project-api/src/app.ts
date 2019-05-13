@@ -1,6 +1,9 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 
+import * as swaggerUi from 'swagger-ui-express';
+const swaggerDocument = require('../api/projectapi.json');
+
 import { Index } from './routes/index';
 
 class App {
@@ -11,6 +14,10 @@ class App {
         this.app = express();
         this.app.use(bodyParser.json());
 
+        // Swagger-UI
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+        // Routes
         this.IndexRoutes.routes(this.app);
     }
 }
