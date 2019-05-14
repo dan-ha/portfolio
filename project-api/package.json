@@ -1,0 +1,52 @@
+{
+  "name": "project-api",
+  "version": "1.0.0",
+  "description": "This is the project-api service for my personal portfolio",
+  "main": "./dist/server.js",
+  "scripts": {
+    "dev": "cross-env PORT=8080 NODE_ENV=dev ts-node ./src/server.ts",
+    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.spec.ts",
+    "start-db": "docker run --name my-mongo -p 27017:27017 -v `pwd`/data/mongo:/data/db -d mongo:latest"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "keywords": [
+    "portfolio",
+    "TypeScript",
+    "API",
+    "REST",
+    "Swagger",
+    "TDD"
+  ],
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/chai": "^4.1.7",
+    "@types/chai-http": "^4.2.0",
+    "@types/express": "^4.16.1",
+    "@types/express-winston": "^3.0.1",
+    "@types/mocha": "^5.2.6",
+    "@types/mongodb": "^3.1.26",
+    "@types/mongoose": "^5.5.0",
+    "@types/node": "^10.12.12",
+    "@types/swagger-ui-express": "^3.0.0",
+    "@types/winston": "^2.4.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "cross-env": "^5.2.0",
+    "mocha": "^6.1.4",
+    "typescript": "^3.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "express-winston": "^3.1.0",
+    "js2xmlparser": "^4.0.0",
+    "mongoose": "^5.5.7",
+    "swagger-ui-express": "^4.0.2",
+    "ts-node": "^8.1.0",
+    "winston": "^3.2.1"
+  },
+  "author": "danha",
+  "license": "MIT"
+}
