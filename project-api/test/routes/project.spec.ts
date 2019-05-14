@@ -108,11 +108,11 @@ describe('Project API - CRUD operations', () => {
                 });
         });
         it('should return 400 for invalid project', async () => {
-            const updatedProject = {};
+            const projectId = '999999';
             return chai
                 .request(app)
                 .patch(`/project/${projectId}`)
-                .send(updatedProject)
+                .send({})
                 .then(res => {
                     expect(res.status).to.be.equal(400);
                 });

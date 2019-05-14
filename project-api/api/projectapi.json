@@ -147,10 +147,10 @@
             "description": "successful operation"
           },
           "400": {
-            "description": "Invalid user supplied"
+            "description": "Invalid project supplied"
           },
           "404": {
-            "description": "User not found"
+            "description": "Project not found"
           }
         },
         "requestBody": {
