@@ -5,7 +5,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "dev": "cross-env PORT=8080 NODE_ENV=dev ts-node ./src/server.ts",
-    "test": "cross-env NODE_ENV=test mocha --require ts-node/register test/**/*.spec.ts",
+    "test": "NODE_ENV=test mocha --require ts-node/register test/**/*.spec.ts --exit",
     "start-db": "docker run --name my-mongo -p 27017:27017 -v `pwd`/data/mongo:/data/db -d mongo:latest"
   },
   "engines": {
