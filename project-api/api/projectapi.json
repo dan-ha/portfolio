@@ -77,8 +77,16 @@
           },
           "400": {
             "description": "Invalid Project"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/project/{projectId}": {
@@ -142,17 +150,6 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          },
-          "400": {
-            "description": "Invalid project supplied"
-          },
-          "404": {
-            "description": "Project not found"
-          }
-        },
         "requestBody": {
           "content": {
             "application/json": {
@@ -163,7 +160,26 @@
           },
           "description": "Updated project object",
           "required": true
-        }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid project supplied"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -202,14 +218,27 @@
           "400": {
             "description": "Invalid ID supplied"
           },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
           "404": {
             "description": "Project not found"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
   "components": {
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid"
+      }
+    },
     "schemas": {
       "ProjectList": {
         "type": "array",
@@ -262,6 +291,13 @@
         "xml": {
           "name": "Project"
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

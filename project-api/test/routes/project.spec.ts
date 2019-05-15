@@ -22,11 +22,13 @@ const project: Project = {
 let projectId: string;
 
 describe('Project API - CRUD operations', () => {
+    const JWT_TOKEN = process.env.JWT_TOKEN;
     describe('CREATE-POST /project', () => {
         it('should create new project - 201 Created', async () => {
             return chai
                 .request(app)
                 .post('/project')
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .send(project)
                 .then(res => {
                     expect(res.status).to.be.equal(201);
@@ -44,6 +46,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .post('/project')
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .send(invalidProject)
                 .then(res => {
                     expect(res.status).to.be.equal(400);
@@ -98,6 +101,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .patch(`/project/${projectId}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .send(updateProject)
                 .then(res => {
                     // Assert
@@ -112,6 +116,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .patch(`/project/${projectId}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .send({})
                 .then(res => {
                     expect(res.status).to.be.equal(400);
@@ -122,6 +127,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .patch(`/project/${nonExistingId}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .send({})
                 .then(res => {
                     expect(res.status).to.be.equal(404);
@@ -134,6 +140,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .delete(`/project/${projectId}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .then(res => {
                     expect(res.status).to.be.equal(200);
                     expect(res.body._id).to.be.equal(projectId);
@@ -144,6 +151,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .delete(`/project/${invalidProjectId}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .then(res => {
                     expect(res.status).to.be.equal(400);
                 });
@@ -153,6 +161,7 @@ describe('Project API - CRUD operations', () => {
             return chai
                 .request(app)
                 .delete(`/project/${nonExisting}`)
+                .set('Authorization', `Bearer ${JWT_TOKEN}`)
                 .then(res => {
                     expect(res.status).to.be.equal(404);
                 });

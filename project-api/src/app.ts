@@ -14,7 +14,7 @@ import * as errorHandler from './utility/errorHandling';
 
 class App {
   public app: express.Application;
-  private projectRoute: ProjectRoute = new ProjectRoute();
+  private projectRoute: ProjectRoute;
   public mongoUrl: string
   public mongoUser: string
   public mongoPass: string
@@ -27,7 +27,7 @@ class App {
     }`;
     this.mongoUser = `${process.env.MONGODB_USER}`
     this.mongoPass = `${process.env.MONGODB_PASS}`
-
+    
     this.app = express();
     this.app.use(bodyParser.json());
 
@@ -35,6 +35,7 @@ class App {
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     // Routes
+    this.projectRoute = new ProjectRoute();
     this.projectRoute.routes(this.app);
 
     // Database
@@ -73,5 +74,3 @@ class App {
 }
 
 export default new App().app;
-
-

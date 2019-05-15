@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ObjectId } from 'mongodb';
 import { ProjectModel } from '../schemas/project';
 import { formatOutput } from '../utility/apiUtils';
-import { APILogger } from '../utility/logger'
+import { APILogger } from '../utility/logger';
 
 // CREATE
 export async function addProject(req: Request, res: Response, next: NextFunction) {
